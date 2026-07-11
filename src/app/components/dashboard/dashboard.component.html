@@ -7,54 +7,6 @@
 
   <div class="dashboard-layout">
     <section class="database-stage">
-      <div class="title-block">
-        <p>Connected to Secure Server</p>
-        <h1>View Leaked details</h1>
-      </div>
-
-      <form class="search-panel" (ngSubmit)="startMobileSearch()">
-        <label for="mobile-search">Search with mobile no/email/username</label>
-        <div class="search-row">
-          <input
-            id="mobile-search"
-            name="mobileSearch"
-            type="tel"
-            inputmode="numeric"
-            autocomplete="off"
-            placeholder="Enter mobile no/email/username"
-            [(ngModel)]="searchMobile">
-          <button type="submit">Search</button>
-        </div>
-
-        @if (searchMessage) {
-          <p class="search-message">{{ searchMessage }}</p>
-        }
-
-        @if (searchStep === 'challenge') {
-          <div class="search-row">
-            <input
-              name="daddyAnswer"
-              type="text"
-              autocomplete="off"
-              placeholder="Type sourav"
-              [(ngModel)]="daddyAnswer">
-            <button type="button" (click)="verifyDaddyAnswer()">Submit</button>
-          </div>
-        }
-
-        @if (searchStep === 'email') {
-          <div class="search-row">
-            <input
-              name="requestEmail"
-              type="email"
-              autocomplete="off"
-              placeholder="Provide email"
-              [(ngModel)]="requestEmail">
-            <button type="button" (click)="submitDummyEmail()">Submit</button>
-          </div>
-        }
-      </form>
-
       <div class="floating-code" aria-hidden="true">
         @for (snippet of codeSnippets; track snippet; let i = $index) {
           <span class="code-snippet snippet-{{ i }}">{{ snippet }}</span>
@@ -67,6 +19,95 @@
             <app-user-card [user]="user" (selected)="selectUser($event)" />
           </div>
         }
+      </div>
+
+      <div class="workbench">
+        <div class="title-block">
+          <p>Connected to Secure Server</p>
+          <h1>View Leaked Details</h1>
+        </div>
+
+        <form class="search-panel" (ngSubmit)="startMobileSearch()">
+          <label for="mobile-search">Search with mobile no / email / username</label>
+          <div class="search-row">
+            <input
+              id="mobile-search"
+              name="mobileSearch"
+              type="search"
+              autocomplete="off"
+              placeholder="Enter mobile no, email, or username"
+              [(ngModel)]="searchMobile">
+            <button type="submit">Search</button>
+          </div>
+
+          @if (searchMessage) {
+            <p class="search-message">{{ searchMessage }}</p>
+          }
+
+          @if (searchStep === 'challenge') {
+            <div class="search-row">
+              <input
+                name="daddyAnswer"
+                type="text"
+                autocomplete="off"
+                placeholder="Type sourav"
+                [(ngModel)]="daddyAnswer">
+              <button type="button" (click)="verifyDaddyAnswer()">Submit</button>
+            </div>
+          }
+
+          @if (searchStep === 'email') {
+            <div class="search-row">
+              <input
+                name="requestEmail"
+                type="email"
+                autocomplete="off"
+                placeholder="Provide email"
+                [(ngModel)]="requestEmail">
+              <button type="button" (click)="submitDummyEmail()">Submit</button>
+            </div>
+          }
+        </form>
+
+        <section class="results-shell" aria-label="Search results">
+          @if (searchResult?.List) {
+            <div class="results-toolbar">
+              <div>
+                <span>Search results</span>
+                <strong>{{ resultDatabaseCount }} source{{ resultDatabaseCount === 1 ? '' : 's' }} found</strong>
+              </div>
+              <button type="button" (click)="exportResultsAsPdf()">Export PDF</button>
+            </div>
+            <div class="api-results">
+              @for (db of searchResult.List | keyvalue; track db.key) {
+                <article class="db-card">
+                  <header class="db-header">
+                    <h2>{{ db.key }}</h2>
+                    <p>{{ getValue(db.value).InfoLeak }}</p>
+                  </header>
+
+                  <div class="record-list">
+                    @for (row of getValue(db.value).Data; track $index) {
+                      <section class="record-card">
+                        @for (field of row | keyvalue; track field.key) {
+                          <div class="field-row">
+                            <div class="field-name">{{ field.key }}</div>
+                            <div class="field-value">{{ field.value }}</div>
+                          </div>
+                        }
+                      </section>
+                    }
+                  </div>
+                </article>
+              }
+            </div>
+          } @else {
+            <div class="empty-results">
+              <span>OSINT QUERY CONSOLE</span>
+              <p>Enter a mobile number, email, or username to inspect available leak records.</p>
+            </div>
+          }
+        </section>
       </div>
 
       @if (selectedUser) {

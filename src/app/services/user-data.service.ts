@@ -203,7 +203,26 @@ private readonly users: VaultUser[] = [
       email: 'NA',
       notes: 'Location overlap with nearby records.'
     }
+  },
+    {
+    id: 12,
+    name: 'SURAJ KUMAR MAHTO',
+    father_name: 'JAYRAM MAHTO',
+    mobile: '7700883987',
+    photo: 'assets/images/avatar-11.svg',
+    status: 'Hacked',
+    risk: 30,
+    confidential: {
+      alias: 'Cipher-011',
+      aadhaar_card: 'NA',
+      pan_card: 'NA',
+      address: 'S/O  Jayram Mahto, VILL-DOMBA PS-BHARNO, Domba Gumla, Jharkhand, 835324',
+      other_numbers: '6202850793, 7700883987, 918685757575',
+      email: 'NA',
+      notes: 'Location overlap with nearby records.'
+    }
   }
+
 ];
 
   getUsers(): VaultUser[] {

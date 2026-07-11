@@ -43,12 +43,20 @@
   box-shadow: inset 0 0 36px rgba(0, 0, 0, 0.72);
 }
 
-.title-block {
+.workbench {
   position: absolute;
-  top: clamp(20px, 4vh, 42px);
-  left: clamp(18px, 3.5vw, 52px);
-  z-index: 8;
-  pointer-events: none;
+  inset: clamp(18px, 3vh, 34px) clamp(16px, 3vw, 46px);
+  z-index: 14;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 16px;
+  min-width: 0;
+  min-height: 0;
+  pointer-events: auto;
+}
+
+.title-block {
+  width: min(760px, 100%);
 }
 
 .title-block p {
@@ -62,24 +70,19 @@
   margin: 0;
   color: var(--green);
   font-family: "Orbitron", sans-serif;
-  font-size: clamp(2rem, 7vw, 5.7rem);
-  line-height: 0.9;
+  font-size: clamp(2rem, 5.8vw, 4.8rem);
+  line-height: 0.95;
   text-shadow: 0 0 30px rgba(0, 255, 136, 0.65);
 }
 
 .search-panel {
-  position: absolute;
-  top: clamp(148px, 24vh, 230px);
-  left: clamp(18px, 3.5vw, 52px);
-  z-index: 10;
-  width: min(430px, calc(100% - 36px));
+  width: min(720px, 100%);
   display: grid;
-  gap: 10px;
-  padding: 14px;
+  gap: 12px;
+  padding: 16px;
   border: 1px solid rgba(58, 231, 255, 0.42);
   border-radius: 8px;
   background: rgba(0, 0, 0, 0.58);
-  box-shadow: 0 0 26px rgba(58, 231, 255, 0.14), inset 0 0 20px rgba(0, 255, 136, 0.06);
   backdrop-filter: blur(12px);
 }
 
@@ -90,17 +93,19 @@
 }
 
 .search-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 8px;
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  min-width: 0;
 }
 
 .search-row input {
+  flex: 1 1 auto;
   min-width: 0;
-  height: 40px;
+  height: 44px;
   border: 1px solid rgba(0, 255, 136, 0.36);
   border-radius: 8px;
-  padding: 0 12px;
+  padding: 0 14px;
   color: var(--text);
   background: rgba(0, 0, 0, 0.62);
   outline: none;
@@ -112,13 +117,15 @@
 }
 
 .search-row button {
-  height: 40px;
+  flex: 0 0 118px;
+  height: 44px;
   border: 1px solid rgba(0, 255, 136, 0.56);
   border-radius: 8px;
-  padding: 0 14px;
+  padding: 0 18px;
   color: #001f12;
   background: var(--green);
   cursor: pointer;
+  text-transform: uppercase;
 }
 
 .search-row button:hover,
@@ -131,6 +138,149 @@
   margin: 0;
   color: var(--amber);
   line-height: 1.35;
+}
+
+.results-shell {
+  min-height: 0;
+  width: min(1040px, 100%);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  border: 1px solid rgba(0, 255, 136, 0.24);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.48);
+  overflow: hidden;
+}
+
+.results-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(0, 255, 136, 0.2);
+  background: rgba(0, 0, 0, 0.34);
+}
+
+.results-toolbar span {
+  display: block;
+  color: var(--cyan);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.results-toolbar strong {
+  color: var(--text);
+  font-size: 0.86rem;
+}
+
+.results-toolbar button {
+  height: 34px;
+  border: 1px solid rgba(58, 231, 255, 0.62);
+  border-radius: 8px;
+  padding: 0 12px;
+  color: var(--cyan);
+  background: rgba(0, 0, 0, 0.48);
+  cursor: pointer;
+}
+
+.api-results {
+  height: 100%;
+  min-height: 0;
+  overflow: auto;
+  padding: 16px;
+}
+
+.empty-results {
+  height: 100%;
+  min-height: 180px;
+  display: grid;
+  place-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+}
+
+.empty-results span {
+  color: var(--green);
+  font-family: "Orbitron", sans-serif;
+}
+
+.empty-results p {
+  max-width: 420px;
+  margin: 0;
+  color: rgba(216, 255, 232, 0.68);
+  line-height: 1.45;
+}
+
+.db-card {
+  margin-bottom: 18px;
+  border: 1px solid rgba(0, 255, 136, 0.42);
+  border-radius: 8px;
+  background: rgba(8, 18, 13, 0.92);
+  overflow: hidden;
+}
+
+.db-header {
+  display: grid;
+  gap: 6px;
+  padding: 16px 18px;
+  border-bottom: 1px solid rgba(0, 255, 100, 0.22);
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.db-header h2 {
+  margin: 0;
+  color: var(--green);
+  font-family: "Orbitron", sans-serif;
+  font-size: 1rem;
+}
+
+.db-header p {
+  margin: 0;
+  color: rgba(216, 255, 232, 0.68);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+.record-list {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+}
+
+.record-card {
+  border: 1px solid rgba(0, 255, 120, 0.14);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.22);
+  overflow: hidden;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: minmax(120px, 220px) minmax(0, 1fr);
+  min-width: 0;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+}
+
+.field-row:last-child {
+  border-bottom: none;
+}
+
+.field-name,
+.field-value {
+  min-width: 0;
+  padding: 9px 12px;
+}
+
+.field-name {
+  color: var(--green);
+  font-weight: 700;
+  background: rgba(0, 255, 136, 0.05);
+}
+
+.field-value {
+  color: #ffffff;
+  overflow-wrap: anywhere;
 }
 
 .packet-field {
@@ -154,10 +304,7 @@
   display: grid;
   place-items: center;
   padding: clamp(16px, 3vw, 34px);
-  background:
-    repeating-linear-gradient(90deg, rgba(216, 255, 232, 0.04) 0 1px, transparent 1px 10px),
-    rgba(0, 0, 0, 0.56);
-  backdrop-filter: blur(7px);
+  background: rgba(0, 0, 0, 0.56);
 }
 
 .dossier-panel {
@@ -168,20 +315,8 @@
   border: 1px solid rgba(58, 231, 255, 0.56);
   border-radius: 8px;
   color: var(--text);
-  background:
-    linear-gradient(145deg, rgba(58, 231, 255, 0.13), transparent 32%),
-    radial-gradient(circle at 12% 0%, rgba(0, 255, 136, 0.24), transparent 36%),
-    rgba(2, 8, 7, 0.94);
-  box-shadow: 0 0 44px rgba(58, 231, 255, 0.2), inset 0 0 34px rgba(0, 255, 136, 0.08);
+  background: rgba(2, 8, 7, 0.94);
   overflow: auto;
-}
-
-.dossier-panel::before {
-  content: "";
-  position: absolute;
-  inset: 5px;
-  border: 1px solid rgba(216, 255, 232, 0.12);
-  pointer-events: none;
 }
 
 .close-dossier {
@@ -198,12 +333,6 @@
   cursor: pointer;
 }
 
-.close-dossier:hover,
-.close-dossier:focus-visible {
-  outline: none;
-  box-shadow: 0 0 18px rgba(255, 77, 109, 0.34);
-}
-
 .dossier-header {
   display: grid;
   grid-template-columns: 92px minmax(0, 1fr);
@@ -218,7 +347,6 @@
   border: 1px solid rgba(0, 255, 136, 0.66);
   border-radius: 8px;
   background: #020202;
-  box-shadow: 0 0 22px rgba(0, 255, 136, 0.3);
 }
 
 .security-label {
@@ -411,34 +539,103 @@
   }
 
   .database-stage {
-    min-height: 640px;
+    min-height: 760px;
+  }
+
+  .workbench {
+    inset: 18px;
   }
 }
 
 @media (max-width: 620px) {
   .dashboard-layout {
-    padding: 12px;
+    padding: 10px;
   }
 
   .database-stage {
-    min-height: 590px;
+    min-height: 680px;
+  }
+
+  .workbench {
+    inset: 12px;
+    gap: 10px;
   }
 
   .title-block h1 {
-    font-size: clamp(2.05rem, 14vw, 4rem);
-    max-width: 8ch;
+    max-width: none;
+    font-size: 1.55rem;
+    line-height: 1.08;
   }
 
   .title-block p {
     max-width: 240px;
-    font-size: 0.78rem;
+    margin-bottom: 5px;
+    font-size: 0.68rem;
   }
 
   .search-panel {
-    top: 182px;
+    gap: 9px;
+    padding: 12px;
+  }
+
+  .search-panel label,
+  .search-message {
+    font-size: 0.74rem;
   }
 
   .search-row {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .search-row input,
+  .search-row button {
+    height: 38px;
+    font-size: 0.82rem;
+  }
+
+  .search-row button {
+    flex-basis: auto;
+    width: 100%;
+  }
+
+  .api-results {
+    padding: 10px;
+  }
+
+  .results-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .db-card {
+    margin-bottom: 12px;
+  }
+
+  .db-header {
+    padding: 12px;
+  }
+
+  .db-header h2 {
+    font-size: 0.86rem;
+  }
+
+  .db-header p,
+  .field-row {
+    font-size: 0.78rem;
+  }
+
+  .record-list {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .field-row {
     grid-template-columns: 1fr;
+  }
+
+  .field-value {
+    padding-top: 0;
   }
 }
