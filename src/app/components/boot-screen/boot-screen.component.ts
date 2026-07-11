@@ -24,7 +24,7 @@ export class BootScreenComponent implements OnInit, OnDestroy {
   @Output() complete = new EventEmitter<void>();
 
   readonly messages = [
-    'Whatsapp Group Data...',
+    'Leaked Data Loading...',
     'Connecting Secure Network...',
     'Authentication Success',
     'ACCESS GRANTED'
