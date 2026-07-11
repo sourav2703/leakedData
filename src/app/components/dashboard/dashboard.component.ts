@@ -92,7 +92,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     }
 
     this.searchStep = 'done';
-    this.searchMessage = 'Submitted. This is a dummy request only.';
+    this.searchMessage = 'Submitted. wait few moments.';
     this.audio.play('beep', 0.14);
   }
 
