@@ -20,7 +20,7 @@ private readonly users: VaultUser[] = [
       pan_card: 'NA',
       address: 'S/O Sri Bishnu Agrawal, Road N0 - 05 Near Prem S T D, Sree Hari Nagar Devi Mandap, Ranchi GPO Ranchi, Jharkhand, 834001',
       other_numbers: '7547082460',
-      email: 'CV-1001',
+      email: 'NA',
       notes: 'Demo record for Cyber Vault.'
     }
   },
@@ -56,7 +56,7 @@ private readonly users: VaultUser[] = [
       pan_card: 'NA',
       address: 'New Lains Club Chowk, Devi Mandap Road No-5, Shree Hari Nagar Khet Mahalla ranchi, Ranchi, Ranchi, Jharkhand, 834001',
       other_numbers: '',
-      email: 'CV-1001',
+      email: 'NA',
       notes: 'Address variations found.'
     }
   },
@@ -74,7 +74,7 @@ private readonly users: VaultUser[] = [
       pan_card: 'NA',
       address: 'S/O Dyanand Sharma, Sharma Niwas, Near Talab, New Madhukam Ps-Sukhdev Nagar Ranchi, Near Talab, RANCHI, Ranchi, JHARKHAND, 834005',
       other_numbers: '9031758240, 9155759095',
-      email: 'CV-1001',
+      email: 'NA',
       notes: 'Two mobile numbers associated.'
     }
   },
@@ -146,7 +146,7 @@ private readonly users: VaultUser[] = [
       pan_card: 'NA',
       address: 'S/O Gorakh Prasad, New Madhukam Choudhry Dharmshala Road N- 06, Hehal Ranchi, Jharkhand, 834001',
       other_numbers: '6202840408, 6204114246, 7050594890, 7519973136, 8757773849, 9117053641, 9153770194, 9155759095, 9155840841, 9262571829, 9341587113, 9771735863, 9931705778, 9934165101',
-      email: 'CV-1001',
+      email: 'NA',
       notes: 'Shared locality with multiple profiles.'
     }
   },
@@ -182,7 +182,7 @@ private readonly users: VaultUser[] = [
       pan_card: 'NA',
       address: 'S/O Bhola Prasad Barnwal, Road No - 5 J, New Madhukam Devi Mandap Ranchi, HAZARIBAG, Ranchi, JHARKHAND, 834001',
       other_numbers: '8092253559, 8877749004',
-      email: 'CV-1001',
+      email: 'NA',
       notes: 'Several linked numbers.'
     }
   },
@@ -200,7 +200,7 @@ private readonly users: VaultUser[] = [
       pan_card: 'NA',
       address: 's/o paltu saw, 00, karde ratu, shiv mandir, kamde po- kamde, ps- ratu, ranchi, Jharkhand, 835222',
       other_numbers: '8102498598, 8651550012, 8797689566, 9142255046, 9608349513',
-      email: 'CV-1001',
+      email: 'NA',
       notes: 'Location overlap with nearby records.'
     }
   }
