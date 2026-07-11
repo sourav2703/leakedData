@@ -1,0 +1,31 @@
+<section class="boot-screen">
+  <app-matrix [density]="0.82" [opacity]="0.24" />
+  <div class="boot-grid" aria-hidden="true"></div>
+
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <span class="dot red"></span>
+      <span class="dot amber"></span>
+      <span class="dot green"></span>
+      <span class="bar-title">root&#64;cyber-vault:/secure/init</span>
+    </div>
+
+    <div class="terminal-body" [@lineReveal]="typedLines.length">
+      @for (line of typedLines; track line) {
+        <p class="terminal-line" [class.access]="line === 'ACCESS GRANTED'">
+          <span>&gt;</span> {{ line }}
+        </p>
+      }
+
+      @if (activeLine) {
+        <p class="terminal-line active">
+          <span>&gt;</span> {{ activeLine }}<i class="cursor"></i>
+        </p>
+      }
+    </div>
+
+    <div class="progress-track" aria-label="Loading progress">
+      <div class="progress-fill" [style.width.%]="progress"></div>
+    </div>
+  </div>
+</section>

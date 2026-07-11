@@ -1,0 +1,35 @@
+<section #vaultScene class="vault-scene">
+  <div class="inside-light" aria-hidden="true"></div>
+
+  <div #leftPanel class="door-panel left-panel">
+    <div class="panel-warning">WARNING / AUTH LOCK</div>
+    <div class="panel-vents"></div>
+  </div>
+
+  <div #rightPanel class="door-panel right-panel">
+    <div class="digital-lock" [class.unlocked]="unlocked">
+      <span>{{ unlocked ? 'UNLOCKED' : 'SCANNING' }}</span>
+      <strong>{{ unlocked ? '0xOPEN' : '0xA91F' }}</strong>
+    </div>
+    <div class="panel-vents"></div>
+  </div>
+
+  <div class="vault-core">
+    <div class="scanner-line"></div>
+    <p class="vault-label">SECURE DATA VAULT</p>
+    <div #wheel class="wheel">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <i></i>
+    </div>
+    <p class="vault-status">{{ unlocked ? 'Unlocked' : 'Scanning...' }}</p>
+  </div>
+
+  <div class="smoke" aria-hidden="true">
+    @for (particle of [1,2,3,4,5,6,7,8,9,10,11,12]; track particle) {
+      <span class="smoke-particle"></span>
+    }
+  </div>
+</section>

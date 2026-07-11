@@ -1,0 +1,16 @@
+<section class="terminal-panel">
+  <div class="panel-heading">
+    <span>LIVE TERMINAL</span>
+    <i></i>
+  </div>
+
+  <div #logViewport class="log-viewport">
+    @for (log of logs$ | async; track log.time + log.text) {
+      <p class="log-line" [class.warn]="log.tone === 'warn'" [class.accent]="log.tone === 'accent'">
+        <span class="time">{{ log.time }}</span>
+        <span class="prompt">&gt;</span>
+        <span>{{ log.text }}</span>
+      </p>
+    }
+  </div>
+</section>

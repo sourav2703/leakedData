@@ -1,0 +1,137 @@
+<section class="dashboard">
+  <app-matrix [density]="0.45" [opacity]="0.16" [compact]="true" />
+  <div class="scan-lines" aria-hidden="true"></div>
+  <div class="grid-floor" aria-hidden="true"></div>
+
+  <app-header class="header-layer" />
+
+  <div class="dashboard-layout">
+    <section class="database-stage">
+      <div class="title-block">
+        <p>Connected to Secure Server</p>
+        <h1>Leaked Amigos details</h1>
+      </div>
+
+      <!-- <form class="search-panel" (ngSubmit)="startMobileSearch()">
+        <label for="mobile-search">Search with mobile no</label>
+        <div class="search-row">
+          <input
+            id="mobile-search"
+            name="mobileSearch"
+            type="tel"
+            inputmode="numeric"
+            autocomplete="off"
+            placeholder="Enter mobile no"
+            [(ngModel)]="searchMobile">
+          <button type="submit">Search</button>
+        </div>
+
+        @if (searchMessage) {
+          <p class="search-message">{{ searchMessage }}</p>
+        }
+
+        @if (searchStep === 'challenge') {
+          <div class="search-row">
+            <input
+              name="daddyAnswer"
+              type="text"
+              autocomplete="off"
+              placeholder="Type sourav"
+              [(ngModel)]="daddyAnswer">
+            <button type="button" (click)="verifyDaddyAnswer()">Submit</button>
+          </div>
+        }
+
+        @if (searchStep === 'email') {
+          <div class="search-row">
+            <input
+              name="requestEmail"
+              type="email"
+              autocomplete="off"
+              placeholder="Provide email"
+              [(ngModel)]="requestEmail">
+            <button type="button" (click)="submitDummyEmail()">Submit</button>
+          </div>
+        }
+      </form> -->
+
+      <div class="floating-code" aria-hidden="true">
+        @for (snippet of codeSnippets; track snippet; let i = $index) {
+          <span class="code-snippet snippet-{{ i }}">{{ snippet }}</span>
+        }
+      </div>
+
+      <div class="packet-field" aria-label="Animated target records">
+        @for (user of users; track user.id; let i = $index) {
+          <div #cardShell class="data-card-shell" [style.left]="cardLeft(i)">
+            <app-user-card [user]="user" (selected)="selectUser($event)" />
+          </div>
+        }
+      </div>
+
+      @if (selectedUser) {
+        <div class="dossier-backdrop" (click)="clearSelectedUser()">
+          <section
+            class="dossier-panel"
+            role="dialog"
+            aria-modal="true"
+            [attr.aria-label]="'Confidential dossier for ' + selectedUser.name"
+            (click)="$event.stopPropagation()">
+            <button class="close-dossier" type="button" aria-label="Close dossier" (click)="clearSelectedUser()">×</button>
+
+            <div class="dossier-header">
+              <img [src]="selectedUser.photo" [alt]="selectedUser.name + ' avatar'" width="92" height="92">
+              <div>
+                <span class="security-label">CONFIDENTIAL DOSSIER</span>
+                <h2>{{ selectedUser.name }}</h2>
+                <p>{{ selectedUser.confidential.alias }} </p>
+              </div>
+            </div>
+
+
+            <dl class="dossier-grid">
+               <div>
+                <dt>Father's Name</dt>
+                <dd>{{ selectedUser.father_name }}</dd>
+              </div>
+              <div>
+                <dt>Mobile</dt>
+                <dd>{{ selectedUser.mobile }}</dd>
+              </div>
+              <div>
+                <dt>Aadhaar Card</dt>
+                <dd>{{ selectedUser.confidential.aadhaar_card }}</dd>
+              </div>
+              <div>
+                <dt>PAN Card</dt>
+                <dd>{{ selectedUser.confidential.pan_card }}</dd>
+              </div>
+              <div>
+                <dt>Address</dt>
+                <dd>{{ selectedUser.confidential.address }}</dd>
+              </div>
+              <div>
+                <dt>Other Numbers</dt>
+                <dd>{{ selectedUser.confidential.other_numbers }}</dd>
+              </div>
+              <div>
+                <dt>Emails</dt>
+                <dd>{{ selectedUser.confidential.email }}</dd>
+              </div>
+            </dl>
+
+            <div class="risk-readout">
+              <span>Risk Index</span>
+              <strong>{{ selectedUser.risk }}%</strong>
+              <i [style.width.%]="selectedUser.risk"></i>
+            </div>
+
+            <p class="dossier-notes">{{ selectedUser.confidential.notes }}</p>
+          </section>
+        </div>
+      }
+    </section>
+
+    <app-sidebar class="sidebar-layer" />
+  </div>
+</section>

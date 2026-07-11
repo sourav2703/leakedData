@@ -1,0 +1,24 @@
+<article
+  class="user-card"
+  role="button"
+  tabindex="0"
+  [attr.aria-label]="'Open confidential dossier for ' + user.name"
+  [class.priority]="user.status === 'Hacked'"
+  (click)="select()"
+  (keydown.enter)="select()"
+  (keydown.space)="$event.preventDefault(); select()">
+  <div class="holo-sweep" aria-hidden="true"></div>
+  <img class="avatar" [src]="user.photo" [alt]="user.name + ' avatar'" width="74" height="74">
+
+  <div class="identity">
+    <h3>{{ user.name }}</h3>
+    <h4>{{ user.father_name }}</h4>
+    <p>{{ user.mobile }}</p>
+    <!-- <span class="node">{{ user.node }}</span> -->
+  </div>
+
+  <div class="status">
+    <span>{{ user.status }}</span>
+    <i [style.width.%]="user.risk"></i>
+  </div>
+</article>

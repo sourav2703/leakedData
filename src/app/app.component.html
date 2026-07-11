@@ -1,0 +1,16 @@
+<main class="app-shell" [class.is-glitching]="glitching">
+  @if (stage === 'boot') {
+    <app-boot-screen @fadeScale (complete)="showVault()" />
+  }
+
+  @if (stage === 'vault') {
+    <app-vault-door @fadeScale (complete)="showDashboard()" />
+  }
+
+  @if (stage === 'dashboard') {
+    <app-dashboard @fadeScale />
+  }
+
+  <div class="crt-overlay" aria-hidden="true"></div>
+  <div class="cursor-glow" [style.transform]="'translate3d(' + cursorX + 'px,' + cursorY + 'px,0)'"></div>
+</main>

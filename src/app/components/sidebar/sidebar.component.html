@@ -1,0 +1,13 @@
+<aside class="side-panel">
+  <section class="graph-panel">
+    <div class="panel-title">CONNECTION GRAPH</div>
+    <div class="graph">
+      @for (node of nodes; track node; let i = $index) {
+        <span class="graph-node node-{{ i }}">{{ node }}</span>
+      }
+      <i class="graph-core">ROOT</i>
+    </div>
+  </section>
+
+  <app-terminal />
+</aside>
