@@ -1,4 +1,3 @@
-import { query } from '@angular/animations';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -8,16 +7,23 @@ import { Observable } from 'rxjs';
 })
 export class LeakOsintService {
 
-  private apiUrl = 'https://leakdatabackend.onrender.com/api/search';
+  private searchUrl = 'https://leakdatabackend.onrender.com/api/searchh';
+  private couponUrl = 'https://leakdatabackend.onrender.com/api/search/check-coupon';
   // private token = '6516013858:SxqsmEjZ';
 
   constructor(private http: HttpClient) {}
 
   search(query: string): Observable<any> {
-    return this.http.post(this.apiUrl, {
+    return this.http.post(this.searchUrl, {
       query: query,
       limit: 100,
       lang: 'en'
+    });
+  }
+
+  checkCoupon(coupon: string): Observable<any> {
+    return this.http.post(this.couponUrl, {
+      Coupon: coupon
     });
   }
 }

@@ -28,44 +28,89 @@
         </div>
 
         <form class="search-panel" (ngSubmit)="startMobileSearch()">
-          <label for="mobile-search">Search with mobile no / email / username</label>
-          <div class="search-row">
-            <input
-              id="mobile-search"
-              name="mobileSearch"
-              type="search"
-              autocomplete="off"
-              placeholder="Enter mobile no, email, or username"
-              [(ngModel)]="searchMobile">
-            <button type="submit">Search</button>
-          </div>
-
-          @if (searchMessage) {
-            <p class="search-message">{{ searchMessage }}</p>
-          }
-
-          @if (searchStep === 'challenge') {
+          <div class="coupon-panel">
+            <div class="coupon-status">
+              <span>Access coupon</span>
+              <strong>
+                @if (activeCoupon) {
+                  {{ remainingRequests }} / {{ requestLimit }} requests left
+                } @else {
+                  Locked
+                }
+              </strong>
+            </div>
             <div class="search-row">
               <input
-                name="daddyAnswer"
+                name="couponCode"
                 type="text"
                 autocomplete="off"
-                placeholder="Type sourav"
-                [(ngModel)]="daddyAnswer">
-              <button type="button" (click)="verifyDaddyAnswer()">Submit</button>
+                placeholder="Enter coupon code"
+                [(ngModel)]="couponCode">
+              <button type="button" [disabled]="isCheckingCoupon" (click)="activateCoupon()">
+                {{ isCheckingCoupon ? 'Checking' : 'Activate' }}
+              </button>
+            </div>
+
+            @if (couponMessage) {
+              <p class="coupon-message">{{ couponMessage }}</p>
+            }
+          </div>
+
+          @if (showPaymentPanel) {
+            <div class="payment-panel">
+              <img [src]="paymentQr" alt="Rs. 10 payment QR code" width="118" height="118">
+              <div>
+                <span>Quota finished</span>
+                <strong>Pay Rs. 10 for next request</strong>
+                <p>After payment, enter the new coupon you provide.</p>
+              </div>
             </div>
           }
 
-          @if (searchStep === 'email') {
+          @if (canSearch) {
+            <label for="mobile-search">Search with mobile no / email / username</label>
             <div class="search-row">
               <input
-                name="requestEmail"
-                type="email"
+                id="mobile-search"
+                name="mobileSearch"
+                type="search"
                 autocomplete="off"
-                placeholder="Provide email"
-                [(ngModel)]="requestEmail">
-              <button type="button" (click)="submitDummyEmail()">Submit</button>
+                placeholder="Enter mobile no, email, or username"
+                [(ngModel)]="searchMobile">
+              <button type="submit">Search</button>
             </div>
+
+            @if (searchMessage) {
+              <p class="search-message">{{ searchMessage }}</p>
+            }
+
+            @if (searchStep === 'challenge') {
+              <div class="search-row">
+                <input
+                  name="daddyAnswer"
+                  type="text"
+                  autocomplete="off"
+                  placeholder="Type sourav"
+                  [(ngModel)]="daddyAnswer">
+                <button type="button" (click)="verifyDaddyAnswer()">Submit</button>
+              </div>
+            }
+
+            @if (searchStep === 'email') {
+              <div class="search-row">
+                <input
+                  name="requestEmail"
+                  type="email"
+                  autocomplete="off"
+                  placeholder="Provide email"
+                  [(ngModel)]="requestEmail">
+                <button type="button" (click)="submitDummyEmail()">Submit</button>
+              </div>
+            }
+          } @else {
+            <p class="locked-search-message">
+              Activate a valid coupon to unlock search. Each coupon allows {{ requestLimit }} search.
+            </p>
           }
         </form>
 
@@ -104,7 +149,13 @@
           } @else {
             <div class="empty-results">
               <span>OSINT QUERY CONSOLE</span>
-              <p>Enter a mobile number, email, or username to inspect available leak records.</p>
+              <p>
+                @if (canSearch) {
+                  Enter a mobile number, email, or username to inspect available leak records.
+                } @else {
+                  Search results unlock after coupon activation.
+                }
+              </p>
             </div>
           }
         </section>
