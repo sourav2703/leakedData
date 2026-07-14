@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LeakOsintService {
 
-  private searchUrl = 'https://leakdatabackend.onrender.com/api/searchh';
+  private searchUrl = 'https://leakdatabackend.onrender.com/api/search/search';
   private couponUrl = 'https://leakdatabackend.onrender.com/api/search/check-coupon';
   // private token = '6516013858:SxqsmEjZ';
 

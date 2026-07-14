@@ -34,7 +34,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
   couponMessage = '';
   isCheckingCoupon = false;
   showPaymentPanel = false;
-  readonly requestLimit = 1;
+  readonly requestLimit = 3;
   readonly paymentQr = 'assets/images/qr.jpg';
   private tweens: gsap.core.Tween[] = [];
   private resizeTimer?: number;
@@ -66,65 +66,13 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     return this.searchResult?.List ? Object.keys(this.searchResult.List).length : 0;
   }
 
-  get remainingRequests(): number {
-    if (!this.activeCoupon) {
-      return 0;
-    }
 
-    return this.isCouponUsed(this.activeCoupon) ? 0 : 1;
-  }
-
-  get canSearch(): boolean {
-    return Boolean(this.activeCoupon && this.remainingRequests > 0);
-  }
+ 
 
   getValue(value: any): any {
   return value;
 }
 
-  activateCoupon(): void {
-    const normalizedCode = this.normalizeCoupon(this.couponCode);
-    if (!normalizedCode) {
-      this.couponMessage = 'Enter coupon code to unlock search.';
-      return;
-    }
-
-    if (this.isCouponUsed(normalizedCode)) {
-      this.activeCoupon = '';
-      this.showPaymentPanel = true;
-      this.couponMessage = 'This coupon was already used. Pay Rs. 10 and enter a new coupon.';
-      return;
-    }
-
-    this.isCheckingCoupon = true;
-    this.couponMessage = 'Checking coupon...';
-
-    this.leakService.checkCoupon(normalizedCode).subscribe({
-      next: (res) => {
-        this.isCheckingCoupon = false;
-
-        if (!this.isCouponResponseValid(res)) {
-          this.activeCoupon = '';
-          this.showPaymentPanel = true;
-          this.couponMessage = this.getCouponResponseMessage(res) || 'Invalid or already used coupon.';
-          return;
-        }
-
-        this.activeCoupon = normalizedCode;
-        this.couponCode = '';
-        this.showPaymentPanel = false;
-        this.searchResult = null;
-        this.couponMessage = 'Coupon verified. Search unlocked for 1 request.';
-        this.audio.play('beep', 0.14);
-      },
-      error: (err) => {
-        console.error(err);
-        this.isCheckingCoupon = false;
-        this.activeCoupon = '';
-        this.couponMessage = 'Coupon check failed. Try again.';
-      }
-    });
-  }
 
   selectUser(user: VaultUser): void {
     this.selectedUser = user;
@@ -142,11 +90,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
       return;
     }
 
-    if (!this.canUseApi()) {
-      return;
-    }
 
-    this.consumeCouponRequest();
     this.showPaymentPanel = true;
     this.couponMessage = 'Coupon used. Pay Rs. 10 and enter a new coupon for another search.';
     this.searchResult = null;
@@ -159,7 +103,7 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
         this.searchResult = res;
 
         this.searchMessage = '';
-        this.couponMessage = 'Search complete. Pay Rs. 10 and enter another coupon for the next search.';
+       
         this.showPaymentPanel = true;
 
       },
@@ -229,82 +173,10 @@ export class DashboardComponent implements AfterViewInit, OnDestroy {
     this.resizeTimer = window.setTimeout(() => this.animateCards(), 180);
   };
 
-  private canUseApi(): boolean {
-    if (!this.activeCoupon) {
-      this.showPaymentPanel = false;
-      this.couponMessage = 'Please activate a coupon before searching.';
-      return false;
-    }
 
-    if (this.remainingRequests <= 0) {
-      this.showPaymentPanel = true;
-      this.couponMessage = 'Coupon already used. Pay Rs. 10 and enter a new coupon.';
-      return false;
-    }
 
-    return true;
-  }
+ 
 
-  private consumeCouponRequest(): void {
-    if (!this.activeCoupon) {
-      return;
-    }
-
-    const usedCoupons = this.getUsedCoupons();
-    usedCoupons.push(this.activeCoupon);
-    window.localStorage.setItem(this.usedCouponStorageKey, JSON.stringify([...new Set(usedCoupons)]));
-    this.activeCoupon = '';
-  }
-
-  private isCouponUsed(code: string): boolean {
-    return this.getUsedCoupons().includes(this.normalizeCoupon(code));
-  }
-
-  private getUsedCoupons(): string[] {
-    try {
-      const coupons = JSON.parse(window.localStorage.getItem(this.usedCouponStorageKey) ?? '[]');
-      return Array.isArray(coupons) ? coupons.map((coupon) => this.normalizeCoupon(String(coupon))) : [];
-    } catch {
-      return [];
-    }
-  }
-
-  private normalizeCoupon(code: string): string {
-    return code.trim().toUpperCase();
-  }
-
-  private isCouponResponseValid(response: any): boolean {
-    if (response === true) {
-      return true;
-    }
-
-    if (!response || typeof response !== 'object') {
-      return false;
-    }
-
-    const payload = response.data && typeof response.data === 'object' ? response.data : response;
-    const valid = payload.valid ?? payload.isValid ?? payload.success ?? payload.status;
-    const used = payload.used ?? payload.isUsed ?? payload.alreadyUsed;
-
-    if (used === true) {
-      return false;
-    }
-
-    if (typeof valid === 'string') {
-      return ['true', 'valid', 'success', 'ok'].includes(valid.toLowerCase());
-    }
-
-    return valid === true || valid === 1;
-  }
-
-  private getCouponResponseMessage(response: any): string {
-    if (!response || typeof response !== 'object') {
-      return '';
-    }
-
-    const payload = response.data && typeof response.data === 'object' ? response.data : response;
-    return String(payload.message ?? payload.error ?? payload.msg ?? '');
-  }
 
   private buildPdfReport(): string {
     const query = this.escapeHtml(this.searchMobile || 'Unknown query');
